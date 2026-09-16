@@ -135,7 +135,7 @@ class MaintenanceRun extends Command
             return ['status' => 'skip', 'message' => 'Tidak ada direktori session'];
         }
 
-        $ cutoff = now()->subDays(7)->getTimestamp();
+        $cutoff = now()->subDays(7)->getTimestamp();
         $deleted = 0;
         $freed = 0;
 
@@ -171,7 +171,7 @@ class MaintenanceRun extends Command
         // Bersihkan file log lama (> 14 hari)
         $logDir = storage_path('logs');
         if (is_dir($logDir)) {
-            $ cutoff = now()->subDays(14)->getTimestamp();
+            $cutoff = now()->subDays(14)->getTimestamp();
             foreach (File::files($logDir) as $file) {
                 if ($file->getExtension() === 'log' && $file->getMTime() < $cutoff) {
                     if (!$dryRun) {
@@ -184,7 +184,7 @@ class MaintenanceRun extends Command
         }
 
         // Bersihkan cache bootstrap
-        $cacheDir = bootstrap_path('cache');
+        $cacheDir = base_path('bootstrap/cache');
         if (is_dir($cacheDir)) {
             foreach (File::files($cacheDir) as $file) {
                 if (!$dryRun) {
