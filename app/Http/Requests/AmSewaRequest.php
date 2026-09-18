@@ -23,6 +23,7 @@ class AmSewaRequest extends FormRequest
     public function rules()
     {
         return [
+            'email_atasan' => 'required|email|max:255',
             'deskripsi' => 'nullable|string',
             'lokasi' => 'nullable|string|max:255',
             'durasi' => 'nullable|string|max:100',

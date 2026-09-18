@@ -23,6 +23,7 @@ class GaBarangRequest extends FormRequest
     public function rules()
     {
         return [
+            'email_atasan' => 'required|email|max:255',
             'nama_barang' => 'required|string|max:255',
             'qty' => 'required|integer|min:1',
             'keterangan' => 'nullable|string|max:500',

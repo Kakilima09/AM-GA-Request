@@ -23,6 +23,7 @@ class AmServiceFaNonKendaraanRequest extends FormRequest
     public function rules()
     {
         return [
+            'email_atasan' => 'required|email|max:255',
             'no_fa' => 'required|string|max:50',
             'nama_fa_merk_spesifikasi' => 'required|string|max:255',
             'perbaikan_penggantian' => 'required|string',

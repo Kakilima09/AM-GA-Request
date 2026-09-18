@@ -24,6 +24,7 @@ class GaRuangMeetingRequest extends FormRequest
     public function rules()
     {
         return [
+            'email_atasan' => 'required|email|max:255',
             'uraian_pemakaian' => 'required|string',
             'no_permintaan' => 'required|string|max:50',
             'qty' => 'nullable|integer|min:0',

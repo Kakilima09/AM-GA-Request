@@ -23,6 +23,7 @@ class FaPenjualanRequest extends FormRequest
     public function rules()
     {
         return [
+            'email_atasan' => 'required|email|max:255',
             'no_fa' => 'required|string|max:50',
             'nama_fa' => 'required|string|max:255',
             'keterangan' => 'required|string',

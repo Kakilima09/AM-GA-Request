@@ -21,6 +21,14 @@
                 <form action="{{ route('fa-penghapusan.update', $faPenghapusan) }}" method="POST" enctype="multipart/form-data">
                     @csrf @method('PUT')
 
+                    <div class="form-group">
+                        <label for="email_atasan">Email Atasan (Approval Level 1) <span class="text-danger">*</span></label>
+                        <input type="email" name="email_atasan" class="form-control @error('email_atasan') is-invalid @enderror"
+                               value="{{ old('email_atasan', $faPenghapusan->email_atasan) }}" placeholder="email atasan">
+                        <small class="text-muted">Email atasan yang akan menerima permintaan approval level 1.</small>
+                        @error('email_atasan') <span class="invalid-feedback">{{ $message }}</span> @enderror
+                    </div>
+
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">

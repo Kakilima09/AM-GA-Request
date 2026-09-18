@@ -34,6 +34,15 @@
                 <form action="{{ route('fa-baru.store') }}" method="POST">
                     @csrf
 
+                    {{-- Email Atasan --}}
+                    <div class="form-group">
+                        <label for="email_atasan">Email Atasan (Approval Level 1) <span class="text-danger">*</span></label>
+                        <input type="email" name="email_atasan" class="form-control @error('email_atasan') is-invalid @enderror"
+                               value="{{ old('email_atasan') }}" placeholder="email atasan">
+                        <small class="text-muted">Email atasan yang akan menerima permintaan approval level 1.</small>
+                        @error('email_atasan') <span class="invalid-feedback">{{ $message }}</span> @enderror
+                    </div>
+
                     {{-- Kategori --}}
                     <div class="row">
                         <div class="col-md-4">

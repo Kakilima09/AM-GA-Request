@@ -33,11 +33,18 @@ class FaBaruController extends ApprovalController
         // Ambil item pertama untuk dijadikan header
         $firstItem = $request->items[0] ?? null;
 
+        // Total estimasi = jumlah (qty x estimasi_harga) dari semua item
+        $totalEstimasi = collect($request->items)->sum(function ($item) {
+            return $item['qty'] * $item['estimasi_harga'];
+        });
+
         $data = [
             'user_id' => Auth::id(),
+            'email_atasan' => $request->email_atasan,
             'kategori' => $request->kategori,
             'tipe_kendaraan' => $request->tipe_kendaraan,
             'is_cop' => $request->boolean('is_cop', false),
+            'estimasi_harga' => $totalEstimasi,
             'status' => 'pending',
             // Isi dari item pertama
             'no_fa' => $firstItem['no_fa'] ?? null,
@@ -63,8 +70,10 @@ class FaBaruController extends ApprovalController
         // Load relasi
         $faBaru->load(['items', 'approvals.user']);
 
-        // Hitung total estimasi harga dari semua item
-        $totalEstimasi = $faBaru->items->sum('estimasi_harga');
+        // Hitung total estimasi harga dari semua item (qty x estimasi_harga)
+        $totalEstimasi = $faBaru->items->sum(function ($item) {
+            return $item->qty * $item->estimasi_harga;
+        });
 
         $nextLevel = $faBaru->getNextPendingLevel();
 
@@ -79,7 +88,17 @@ class FaBaruController extends ApprovalController
 
     public function update(FaBaruRequest $request, FaBaru $faBaru)
     {
-        $faBaru->update($request->only(['kategori', 'tipe_kendaraan', 'is_cop']));
+        $totalEstimasi = collect($request->items)->sum(function ($item) {
+            return $item['qty'] * $item['estimasi_harga'];
+        });
+
+        $faBaru->update([
+            'email_atasan' => $request->email_atasan,
+            'kategori' => $request->kategori,
+            'tipe_kendaraan' => $request->tipe_kendaraan,
+            'is_cop' => $request->boolean('is_cop', false),
+            'estimasi_harga' => $totalEstimasi,
+        ]);
 
         // Hapus item lama
         $faBaru->items()->delete();

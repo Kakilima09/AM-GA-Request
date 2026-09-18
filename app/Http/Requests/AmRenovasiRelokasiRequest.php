@@ -23,6 +23,7 @@ class AmRenovasiRelokasiRequest extends FormRequest
     public function rules()
     {
         return [
+            'email_atasan' => 'required|email|max:255',
             'lokasi_awal' => 'required|string|max:255',
             'lokasi_tujuan' => 'required|string|max:255',
             'spesifikasi_awal' => 'nullable|string',

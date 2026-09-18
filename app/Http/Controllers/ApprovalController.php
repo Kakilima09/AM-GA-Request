@@ -23,8 +23,8 @@ class ApprovalController extends Controller
 
         $approvals = Approval::with(['approvable', 'user'])
             ->where('status', 'pending')
-            ->when($level, function($query) use ($level) {
-                return $query->where('level', $level);
+            ->when($level, function($query) use ($level, $user) {
+                return $query->where('level', $level)->where('user_id', $user->id);
             })
             ->orderBy('created_at', 'desc')
             ->paginate(10);
@@ -76,10 +76,18 @@ class ApprovalController extends Controller
 
     /**
      * Helper untuk mendapatkan approver berdasarkan level.
-     * Bisa di-override di child class jika diperlukan.
+     * Untuk level l1, prioritas diberikan kepada user yang emailnya diisi
+     * pada field email_atasan oleh pemohon (fallback ke role atasan_l1).
      */
-    protected function getApproverForLevel($level)
+    protected function getApproverForLevel($model, $level)
     {
+        if ($level === 'l1' && $model->email_atasan) {
+            $approver = User::where('email', $model->email_atasan)->first();
+            if ($approver) {
+                return $approver;
+            }
+        }
+
         $role = approverRoleForLevel($level);
         if (!$role) return null;
 
@@ -93,7 +101,7 @@ class ApprovalController extends Controller
     {
         $levels = $model->getApprovalLevels();
         foreach ($levels as $level) {
-            $approver = $this->getApproverForLevel($level);
+            $approver = $this->getApproverForLevel($model, $level);
             if ($approver) {
                 $approval = $model->approvals()->create([
                     'level' => $level,
@@ -135,6 +143,11 @@ class ApprovalController extends Controller
 
         if (!$approval) {
             return back()->with('error', 'Level approval tidak ditemukan.');
+        }
+
+        // Pastikan approval dialokasikan ke user yang sedang login
+        if ($user->role !== 'super_admin' && $approval->user_id && $approval->user_id !== $user->id) {
+            abort(403, 'Pengajuan ini dialokasikan ke approver lain.');
         }
 
         $approval->update([

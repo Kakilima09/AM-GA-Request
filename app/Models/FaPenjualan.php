@@ -12,6 +12,7 @@ class FaPenjualan extends Model
     protected $table = 'fa_penjualan';
     protected $fillable = [
         'user_id',
+        'email_atasan',
         'no_fa',
         'nama_fa',
         'keterangan',

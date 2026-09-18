@@ -34,6 +34,7 @@
                             if ($level) {
                                 $pendingCount = \App\Models\Approval::where('status', 'pending')
                                     ->where('level', $level)
+                                    ->where('user_id', $user->id)
                                     ->count();
                             }
                             $unreadCount = $user->unreadNotifications()->count();
@@ -57,8 +58,8 @@
                                 $level = approvalLevelForRole($user->role);
                                 $approvals = \App\Models\Approval::with(['approvable', 'user'])
                                     ->where('status', 'pending')
-                                    ->when($level, function($q) use ($level) {
-                                        return $q->where('level', $level);
+                                    ->when($level, function($q) use ($level, $user) {
+                                        return $q->where('level', $level)->where('user_id', $user->id);
                                     })
                                     ->orderBy('created_at', 'desc')
                                     ->limit(5)

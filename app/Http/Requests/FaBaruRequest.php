@@ -23,6 +23,7 @@ class FaBaruRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'email_atasan' => 'required|email|max:255',
             'kategori' => 'required|in:umum,it,kendaraan',
             'tipe_kendaraan' => 'nullable|string|max:50|required_if:kategori,kendaraan',
             'is_cop' => 'sometimes|boolean',
@@ -40,6 +41,8 @@ class FaBaruRequest extends FormRequest
     public function messages(): array
     {
         return [
+            'email_atasan.required' => 'Email atasan untuk approval wajib diisi.',
+            'email_atasan.email' => 'Format email atasan tidak valid.',
             'kategori.required' => 'Kategori FA wajib dipilih.',
             'kategori.in' => 'Kategori FA tidak valid.',
             'tipe_kendaraan.required_if' => 'Tipe kendaraan wajib diisi jika kategori adalah kendaraan.',

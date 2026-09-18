@@ -12,6 +12,7 @@ class AmRenovasiRelokasi extends Model
     protected $table = 'am_renovasi_relokasi';
     protected $fillable = [
         'user_id',
+        'email_atasan',
         'lokasi_awal',
         'lokasi_tujuan',
         'spesifikasi_awal',

@@ -12,6 +12,7 @@ class FaMutasi extends Model
     protected $table = 'fa_mutasi';
     protected $fillable = [
         'user_id',
+        'email_atasan',
         'no_fa',
         'nama_fa',
         'user_awal_departemen',

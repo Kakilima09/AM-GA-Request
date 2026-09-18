@@ -15,6 +15,7 @@ class FaBaru extends Model
 
     protected $fillable = [
         'user_id',
+        'email_atasan',
         'no_fa',
         'nama_fa',
         'merk_type_spesifikasi',
@@ -43,8 +44,10 @@ class FaBaru extends Model
     {
         $levels = ['l1', 'l2']; // level dasar (Atasan Level 1 & 2)
 
+        // Pembelian FA di atas Rp 10.000.000 harus disetujui Direktur dan CEO
         if ($this->estimasi_harga > 10000000) {
-            $levels[] = 'company_head';
+            $levels[] = 'direktur_am';
+            $levels[] = 'ceo';
         }
 
         if ($this->kategori === 'it') {
@@ -55,10 +58,7 @@ class FaBaru extends Model
             $levels[] = 'ceo';
         }
 
-        // Tambahkan level lain jika diperlukan (misal: direktur_am, manager_am, dll.)
-        // $levels[] = 'direktur_am';
-
-        return $levels;
+        return array_values(array_unique($levels));
     }
     public function items()
     {

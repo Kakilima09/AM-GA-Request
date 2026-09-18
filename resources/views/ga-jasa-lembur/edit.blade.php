@@ -22,6 +22,14 @@
                     @csrf @method('PUT')
 
                     <div class="form-group">
+                        <label for="email_atasan">Email Atasan (Approval Level 1) <span class="text-danger">*</span></label>
+                        <input type="email" name="email_atasan" class="form-control @error('email_atasan') is-invalid @enderror"
+                               value="{{ old('email_atasan', $gaJasaLembur->email_atasan) }}" placeholder="email atasan">
+                        <small class="text-muted">Email atasan yang akan menerima permintaan approval level 1.</small>
+                        @error('email_atasan') <span class="invalid-feedback">{{ $message }}</span> @enderror
+                    </div>
+
+                    <div class="form-group">
                         <label>Pelaksanaan Lembur <span class="text-danger">*</span></label>
                         <input type="text" name="pelaksanaan_lembur" class="form-control @error('pelaksanaan_lembur') is-invalid @enderror" value="{{ old('pelaksanaan_lembur', $gaJasaLembur->pelaksanaan_lembur) }}" required>
                         @error('pelaksanaan_lembur') <span class="invalid-feedback">{{ $message }}</span> @enderror

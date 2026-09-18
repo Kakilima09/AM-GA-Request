@@ -12,6 +12,7 @@ class GaJasaLembur extends Model
     protected $table = 'ga_jasa_lembur';
     protected $fillable = [
         'user_id',
+        'email_atasan',
         'pelaksanaan_lembur',
         'uraian_tugas',
         'hari_kerja',

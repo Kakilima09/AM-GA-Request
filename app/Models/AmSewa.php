@@ -11,6 +11,7 @@ class AmSewa extends Model
     protected $table = 'am_sewa';
     protected $fillable = [
         'user_id',
+        'email_atasan',
         'deskripsi',
         'lokasi',
         'durasi',

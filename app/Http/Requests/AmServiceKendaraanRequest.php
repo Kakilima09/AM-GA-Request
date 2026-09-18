@@ -11,6 +11,7 @@ class AmServiceKendaraanRequest extends FormRequest
     public function rules()
     {
         return [
+            'email_atasan' => 'required|email|max:255',
             'no_polisi' => 'required|string|max:20',
             'merk_type' => 'required|string|max:100',
             'km' => 'nullable|integer|min:0',

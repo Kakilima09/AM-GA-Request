@@ -12,6 +12,7 @@ class AmServiceFaNonKendaraan extends Model
     protected $table = 'am_service_fa_non_kendaraan';
     protected $fillable = [
         'user_id',
+        'email_atasan',
         'no_fa',
         'nama_fa_merk_spesifikasi',
         'perbaikan_penggantian',

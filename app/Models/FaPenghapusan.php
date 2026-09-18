@@ -12,6 +12,7 @@ class FaPenghapusan extends Model
     protected $table = 'fa_penghapusan';
     protected $fillable = [
         'user_id',
+        'email_atasan',
         'no_fa',
         'nama_fa',
         'keterangan',

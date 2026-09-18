@@ -13,6 +13,7 @@ class AmServiceKendaraan extends Model
     protected $table = 'am_service_kendaraan';
     protected $fillable = [
         'user_id',
+        'email_atasan',
         'no_polisi',
         'merk_type',
         'km',

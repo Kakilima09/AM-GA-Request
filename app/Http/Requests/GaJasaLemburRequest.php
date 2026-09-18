@@ -23,6 +23,7 @@ class GaJasaLemburRequest extends FormRequest
     public function rules()
     {
         return [
+            'email_atasan' => 'required|email|max:255',
             'pelaksanaan_lembur' => 'required|string',
             'uraian_tugas' => 'required|string',
             'hari_kerja' => 'nullable|integer|min:0',

@@ -21,6 +21,13 @@
                 <form action="{{ route('am-service-fa-non-kendaraan.store') }}" method="POST">
                     @csrf
                     <div class="form-group">
+                        <label for="email_atasan">Email Atasan (Approval Level 1) <span class="text-danger">*</span></label>
+                        <input type="email" name="email_atasan" class="form-control @error('email_atasan') is-invalid @enderror"
+                               value="{{ old('email_atasan') }}" placeholder="email atasan">
+                        <small class="text-muted">Email atasan yang akan menerima permintaan approval level 1.</small>
+                        @error('email_atasan') <span class="invalid-feedback">{{ $message }}</span> @enderror
+                    </div>
+                    <div class="form-group">
                         <label>No FA <span class="text-danger">*</span></label>
                         <input type="text" name="no_fa" class="form-control @error('no_fa') is-invalid @enderror"
                                value="{{ old('no_fa') }}" placeholder="FA-001" required>

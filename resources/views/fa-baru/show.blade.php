@@ -45,7 +45,16 @@
                         </td>
                     </tr>
                     <tr><th>Diajukan oleh</th><td>{{ $faBaru->user->name ?? 'N/A' }}</td></tr>
+                    @if($faBaru->email_atasan)
+                        <tr><th>Email Atasan (Level 1)</th><td>{{ $faBaru->email_atasan }}</td></tr>
+                    @endif
                     <tr><th>Diajukan pada</th><td>{{ $faBaru->created_at->format('d/m/Y H:i') }}</td></tr>
+                    @if(($faBaru->estimasi_harga ?? 0) > 10000000)
+                        <tr>
+                            <th>Alur Khusus</th>
+                            <td><span class="badge badge-info">Pembelian &gt; Rp 10.000.000 — perlu persetujuan Direktur &amp; CEO</span></td>
+                        </tr>
+                    @endif
                 </table>
 
                 @if($faBaru->items->count() > 0)

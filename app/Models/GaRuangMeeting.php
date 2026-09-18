@@ -12,6 +12,7 @@ class GaRuangMeeting extends Model
     protected $table = 'ga_ruang_meeting';
     protected $fillable = [
         'user_id',
+        'email_atasan',
         'uraian_pemakaian',
         'no_permintaan',
         'qty',

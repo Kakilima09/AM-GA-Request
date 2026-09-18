@@ -12,6 +12,7 @@ class GaBarang extends Model
     protected $table = 'ga_barang';
     protected $fillable = [
         'user_id',
+        'email_atasan',
         'nama_barang',
         'qty',
         'tgl_terima',
